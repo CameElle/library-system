@@ -20,8 +20,8 @@ namespace login_system
                 string Id = context.Request.QueryString["Id"].ToString();
                 byte[] image;
                 //
-                SqlConnection connection = new SqlConnection("Data Source=MOIST\\SQL2014;Initial Catalog=regiR;Integrated Security=True");
-                SqlCommand cmd = new SqlCommand("select Image from register where ID_NUMBER=" + Id, connection);
+                SqlConnection connection = new SqlConnection("Data Source=GUILFOXWORKZ;Initial Catalog=login_ctu;User ID=student_status;Password=glennard");
+                SqlCommand cmd = new SqlCommand("select ImageName from register where ID_NUMBER=" + Id, connection);
                 connection.Open();
                 // Initialize a data reader
                 SqlDataReader reader = cmd.ExecuteReader();

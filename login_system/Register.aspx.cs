@@ -17,7 +17,9 @@ namespace login_system
         {
 
         }
-       
+        // Declare and assign the SQL Server connection variable
+        SqlConnection connection = new SqlConnection("Data Source=GUILFOXWORKZ;Initial Catalog=login_ctu;User ID=student_status;Password=glennard");
+
         protected void Submit_Click(object sender, EventArgs e)
         {
            /* con.Open();
@@ -53,41 +55,55 @@ namespace login_system
         private void Insert()
         {
             // Check if the user selected an image
+            string path = Server.MapPath("img/");
+            string name;
             if (File.HasFile)
             {
-                // Get the length of the image
-                int imageLength = File.PostedFile.ContentLength;
-                // create a variable to hold the image in a byte format
-                byte[] imageArr = new byte[imageLength];
-                HttpPostedFile image = File.PostedFile;
-                image.InputStream.Read(imageArr, 0, imageLength);
+                //For directing the image path
+                string ext = Path.GetExtension(File.FileName);
+                if (ext == ".jpg" || ext == ".png")
+                {
+                    File.SaveAs(path + File.FileName);
+                    name = "img/" + File.FileName;
 
-                // Declare and assign the SQL Server connection variable
-                SqlConnection connection = new SqlConnection("Data Source=MOIST\\SQL2014;Initial Catalog=regiR;Integrated Security=True");
-                // Declare and assign the SQL command variable
-                SqlCommand cmd = new SqlCommand("Insert into register(ID_NUMBER, LastName, FirstName, Course, Year, Major, Image, ImageName) values (@ID_NUMBER, @LastName, @FirstName, @Course, @Year, @Major, @Image, @ImageName)", connection);
+                    // Declare and assign the SQL command variable
+                    SqlCommand cmd = new SqlCommand("Insert into register(ID_NUMBER, LastName, FirstName, Course, Year, Major, ImageName) values (@ID_NUMBER, @LastName, @FirstName, @Course, @Year, @Major, @ImageName)", connection);
 
-                // Open the connection
-                connection.Open();
-                //Add the parameters
-                cmd.Parameters.AddWithValue("@ID_NUMBER", SqlDbType.Int).Value = numberID.Text;
-                cmd.Parameters.AddWithValue("@LastName", SqlDbType.VarChar).Value = LName.Text;
-                cmd.Parameters.AddWithValue("@FirstName", SqlDbType.VarChar).Value = FName.Text;
-                cmd.Parameters.AddWithValue("@Course", SqlDbType.VarChar).Value = Course.Text;
-                cmd.Parameters.AddWithValue("@Year", SqlDbType.Int).Value = Year.Text;
-                cmd.Parameters.AddWithValue("@Major", SqlDbType.VarChar).Value = Major.Text;
-                cmd.Parameters.AddWithValue("@Image", SqlDbType.Image).Value = imageArr;
-                cmd.Parameters.AddWithValue("@ImageName", SqlDbType.VarChar).Value = File.FileName;
-                //Execute the command
-                cmd.ExecuteNonQuery();
-                //Bind the GridView 
-                //BindGridView();
+                    // Open the connection
+                    connection.Open();
+                    //Add the parameters
+                    cmd.Parameters.AddWithValue("@ID_NUMBER", SqlDbType.Int).Value = numberID.Text;
+                    cmd.Parameters.AddWithValue("@LastName", SqlDbType.VarChar).Value = LName.Text;
+                    cmd.Parameters.AddWithValue("@FirstName", SqlDbType.VarChar).Value = FName.Text;
+                    cmd.Parameters.AddWithValue("@Course", SqlDbType.VarChar).Value = Course.Text;
+                    cmd.Parameters.AddWithValue("@Year", SqlDbType.Int).Value = Year.Text;
+                    cmd.Parameters.AddWithValue("@Major", SqlDbType.VarChar).Value = Major.Text;
+                    cmd.Parameters.AddWithValue("@ImageName", SqlDbType.VarChar).Value = name;
+                    //Execute the command
+                    cmd.ExecuteNonQuery();
+                    //Bind the GridView 
+                    //BindGridView();
+                    connection.Close();
+                    ErrText.Text = "Created Successfully!";
+                    ErrText.ForeColor = System.Drawing.Color.Green;
+                } else
+                {
+                    ErrText.Text = ".jpg or .png files only";
+                    ErrText.ForeColor = System.Drawing.Color.Red;
+                }
+            } else
+            {
+                ErrText.Text = "Please Input All the Required Information";
+                ErrText.ForeColor = System.Drawing.Color.Red;
             }
         }
 
-        protected void numberID_TextChanged(object sender, EventArgs e)
+        protected void Delete_Click(object sender, EventArgs e)
         {
-
+            connection.Open();
+            SqlCommand comm = new SqlCommand("Delete register where ID_NUMBER = '" + int.Parse(numberID.Text) + "'", connection);
+            comm.ExecuteNonQuery();
+            connection.Close();
         }
     }
 }
