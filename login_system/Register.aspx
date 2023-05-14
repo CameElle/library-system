@@ -7,6 +7,7 @@
         }
         .auto-style2 {
             width: 247px;
+            margin-right:20%;
         }
         .auto-style3 {
             height: 39px;
@@ -17,7 +18,10 @@
     
     <main class="frame">
       <div class="table"> 
-        <table class="auto-style1">
+        <table class="auto-style1" draggable="true" contenteditable="true">
+            <tr>
+                <td><asp:TextBox ID="ErrText" runat="server" ReadOnly="true"></asp:TextBox> </td>
+            </tr>
             <tr>
                 <td class="auto-style2">ID NUMBER:</td>
                 <td> <asp:TextBox ID="numberID" runat="server"></asp:TextBox></td>
@@ -48,11 +52,9 @@
             </tr>
             <tr>
                 <td colspan="2" class="auto-style3">
-            <asp:Button ID="Submit" runat="server" Text="Submit" OnClick="Submit_Click" /> <asp:Button ID="Update" runat="server" Text="Edit" /> <asp:Button ID="Delete" runat="server" Text="Delete" /></td>
+            <asp:Button ID="Submit" runat="server" Text="Submit" OnClick="Submit_Click" /> <asp:Button ID="Update" runat="server" Text="Edit" /> <asp:Button ID="Delete" runat="server" Text="Delete" OnClick="Delete_Click"/></td>
             </tr>
         </table>
-
-          <img src="path/to/filr.name" />
     </div>
 
     </main>

@@ -16,17 +16,32 @@
     padding: 3%;
     width: 25%;
     height: 445px;
-
+    box-shadow: 15px 15px 10px black;
 }
 
-.idnum{
+.frame-stat {
+    width: 50%;
+    height: 100%;
+    text-align: left;
+    margin-left: 3%;
+    float: left;
+    margin-top: 3%;
+    border-style: solid;
+    border-color: #E98833;
+    padding: 3%;
+    width: 25%;
+    height: 445px;
+    box-shadow: 15px 15px 10px black;
+}
+
+.idnum {
     margin-bottom: 5%;
     margin-top: 3%;
     float: left;
 }
 
-.phlog{
-    float:left;
+.phlog {
+    float: left;
     margin-left: 30%;
     margin-right: 2%;
     color: white;
@@ -45,8 +60,6 @@
     margin-top: 14.3px;
     margin-right: 10%;
     margin-left: 1%;
-
-
 }
 
 .datetime {
@@ -59,8 +72,6 @@
     background: #E98833;
     height: 100px;
     text-align: center;
-
-    
 }
 
 .digcock {
@@ -70,11 +81,4 @@
     color: black;
     text-align: center;
     font-family: 'Times New Roman';
-
-}
-
-
-
-.regbutton{
-    
 }

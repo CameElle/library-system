@@ -26,7 +26,7 @@ namespace login_system
         public void BindGridView()
         {
             // Declare and assign the SQL Server connection variable
-            SqlConnection connection = new SqlConnection("Data Source=MOIST\\SQL2014;Initial Catalog=regiR;Integrated Security=True");
+            SqlConnection connection = new SqlConnection("Data Source=GUILFOXWORKZ;Initial Catalog=login_ctu;User ID=student_status;Password=glennard");
             SqlCommand cmd = new SqlCommand("Select * from register", connection);
             // Open the connection
             connection.Open();
@@ -35,6 +35,9 @@ namespace login_system
             // Bind the result to the GridView
             GridView1.DataSource = dataReader;
             GridView1.DataBind();
+
+            DataList1.DataSource = dataReader;
+            DataList1.DataBind();
         }
     }
 }
