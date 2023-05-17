@@ -8,6 +8,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
 using System.Data.SqlTypes;
+using System.Xml.Linq;
 
 namespace login_system
 {
@@ -19,7 +20,7 @@ namespace login_system
         }
         // Declare and assign the SQL Server connection variable
         SqlConnection connection = new SqlConnection("Data Source=GUILFOXWORKZ;Initial Catalog=login_ctu;User ID=student_status;Password=glennard");
-
+        private string image;
         protected void Submit_Click(object sender, EventArgs e)
         {
            /* con.Open();
@@ -101,9 +102,72 @@ namespace login_system
         protected void Delete_Click(object sender, EventArgs e)
         {
             connection.Open();
+            /*
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT ImageName FROM register where ID_NUMBER='" + int.Parse(numberID.Text) + "'", connection);
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+
+
+            image = dt.Rows[0]["ImageName"].ToString();
+
+            SqlCommand getImage = new SqlCommand("Select ImageName from register where ID_NUMBER = '"+int.Parse(numberID.Text)+"'", connection);
+            SqlDataReader reader = getImage.ExecuteReader();
+            string path = Server.MapPath("img/");
+            while (reader.Read())
+            {
+                image = reader.GetValue(6).ToString();
+                System.IO.File.Delete(image);
+            }
+            */
             SqlCommand comm = new SqlCommand("Delete register where ID_NUMBER = '" + int.Parse(numberID.Text) + "'", connection);
             comm.ExecuteNonQuery();
             connection.Close();
+        }
+
+        protected void Update_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Change();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        protected void Change()
+        {
+            connection.Open();
+            // Check if the user selected an image
+            string path = Server.MapPath("img/");
+            string name;
+            if (File.HasFile)
+            {
+                //For directing the image path
+                string ext = Path.GetExtension(File.FileName);
+                if (ext == ".jpg" || ext == ".png")
+                {
+                    File.SaveAs(path + File.FileName);
+                    name = "img/" + File.FileName;
+
+                    // Declare and assign the SQL command variable
+                    SqlCommand cmd = new SqlCommand("UPDATE register set ID_NUMBER ='"+int.Parse(numberID.Text)+"', LastName = '"+LName.Text+"', FirstName = '"+FName.Text+"', Course = '"+Course.Text+"', Year = '"+int.Parse(Year.Text)+"', Major = '"+Major.Text+"', ImageName = '"+name+"' where ID_NUMBER = '"+int.Parse(numberID.Text)+"'", connection);
+
+                    cmd.ExecuteNonQuery();
+                    //Bind the GridView 
+                    //BindGridView();
+                    connection.Close();
+                    ErrText.Text = "Changed Successfully!";
+                    ErrText.ForeColor = System.Drawing.Color.Green;
+                } else {
+                    ErrText.Text = ".jpg or .png files only";
+                    ErrText.ForeColor = System.Drawing.Color.Red;
+                }
+            } else {
+                ErrText.Text = "Please Input All the Required Information";
+                ErrText.ForeColor = System.Drawing.Color.Red;
+            }
         }
     }
 }

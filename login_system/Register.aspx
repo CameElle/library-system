@@ -52,7 +52,7 @@
             </tr>
             <tr>
                 <td colspan="2" class="auto-style3">
-            <asp:Button ID="Submit" runat="server" Text="Submit" OnClick="Submit_Click" /> <asp:Button ID="Update" runat="server" Text="Edit" /> <asp:Button ID="Delete" runat="server" Text="Delete" OnClick="Delete_Click"/></td>
+            <asp:Button ID="Submit" runat="server" Text="Submit" OnClick="Submit_Click" /> <asp:Button ID="Update" runat="server" Text="Edit" OnClick="Update_Click" /> <asp:Button ID="Delete" runat="server" Text="Delete" OnClick="Delete_Click"/></td>
             </tr>
         </table>
     </div>
