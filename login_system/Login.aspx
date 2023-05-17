@@ -91,6 +91,10 @@
                     <td class="auto-style2">MAJOR:</td>
                     <td> <asp:Label ID="Label3" runat="server"></asp:Label></td>
                 </tr>
+                <tr>
+                    <td class="auto-style2">STATUS:</td>
+                    <td> <asp:Label ID="Label4" runat="server"></asp:Label></td>
+                </tr>
             </table>
             </div>
        </div>
